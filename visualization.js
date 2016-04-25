@@ -144,7 +144,14 @@ body{
       </div>
   </div>
 
+  <div class='row'>
+  <div id="bubble-chart">
+         <strong>Semantic Analysis by Topic</strong> (y: semantic score, x: total tweets,radius: total tweets)
+         <a class="reset" href="javascript:bubbleChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
 
+         <div class="clearfix"></div>
+     </div>
+   </div>
 
 
 
@@ -181,6 +188,7 @@ var tweetsCount = dc.dataCount('.dc-tweets-count');
 var tweetsTable = dc.dataTable('#dc-tweets-table');
 var dayChart = dc.barChart("#day-chart");
 var usChart = dc.geoChoroplethChart("#us-chart");
+var bubbleChart = dc.bubbleChart("#bubble-chart");
 
 
 function remove_bins(source_group) {
@@ -468,6 +476,50 @@ d3.csv('tweets.json', function (error,tweets) {
             .sortBy(function(d){ return d.date; })
             .order(d3.ascending)
             ;
+            
+                 bubbleChart
+                 .width(1300)
+                         .height(1000)
+                         .margins({top: 10, right: 50, bottom: 30, left: 60})
+                         .dimension(filtered)
+                         .group(avgscorebytopic)
+                         .colors(d3.scale.category10())
+                         .keyAccessor(function (p) {
+                             return p.value.count/1000;
+                         })
+                         .valueAccessor(function (p) {
+                             return p.value.average;
+                         })
+                         .radiusValueAccessor(function (p) {
+                             return p.value.count/1000;
+                         })
+                         .y(d3.scale.linear().domain([-40, 80]))
+                         .x(d3.scale.linear().domain([0, 120]))
+                         .r(d3.scale.linear().domain([0, 31]))
+                         .minRadiusWithLabel(3)
+                         .elasticY(true)
+                         .xAxisPadding(10)
+                         .yAxisPadding(10)
+                         .elasticX(true)
+                         .maxBubbleRelativeSize(0.1)
+                         .renderHorizontalGridLines(true)
+                         .renderVerticalGridLines(true)
+                         .renderLabel(true)
+                         .renderTitle(true)
+                         .title(function (p) {
+                             return p.key
+                                     + "\n"
+                                     + "Count: " + numberFormat(p.value.count) + "k"+"\n"
+                                     + "Average Score: " + numberFormat(p.value.average);
+                         });
+                 bubbleChart.yAxis().tickFormat(function (s) {
+                     return s;
+                 });
+                 bubbleChart.xAxis().tickFormat(function (s) {
+                     return s + "k";
+                 });
+
+
 
 
 
