@@ -63,7 +63,7 @@ tweets$topic <- ifelse(grepl(pMilitary,tweets$text, ignore.case = T) == T , "mil
 
 
 
-
+#sentiment analysis
 lexicon <- read.csv("lexicon.csv", stringsAsFactors=F)
 pos.words <- lexicon$word[lexicon$polarity=="positive"]
 neg.words <- lexicon$word[lexicon$polarity=="negative"]
