@@ -204,8 +204,7 @@ function remove_bins(source_group) {
 
 
 
-// (It's CSV, but GitHub Pages only gzip's JSON at the moment.)
-d3.csv('tweets.json', function (error,tweets) {
+d3.csv('test.csv', function (error,tweets) {
 
   var formatNumber = d3.format(",d"),
       formatChange = d3.format("+,d"),
