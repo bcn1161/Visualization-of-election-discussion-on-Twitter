@@ -1,1 +1,3 @@
 # Election on Twitter
+For the purpose of analysis, I collected a month of tweets on Twitter using candidates' names as keywords. The data was collected from March 15 to April 15, and for the purpose of presentation, I used a sample of 5000 tweets per day. Data was cleaned and categorized by candidate, discussion topic, and party identification. 
+The visualization is completed by javascript libraries such as d3, dc, and crossfilter, which allows users to navigate easily by Twitter users' geographic location, candidates, parties and topics discussed in tweets, date, hour, and day of week, and also tweets' sentiment. Sentiment analysis(positve vs negative) is visualized by bubble overlay chart.  
